@@ -8,29 +8,49 @@
                 font-family: iransans_regular;
                 src: url(iransans_regular.ttf);
             }
-
             body{
                 font-family: iransans_regular;
             }
+            div.main{
+                height:40px;
+                width:30%;
+                margin-left:41%;;
+            }
+            div.inner1{
+                height:100%;
+                width:48%;
+                float: left;
+            }
+            div.inner2{
+                height:100%;
+                width:48%;
+                float:right;
+            }
+
 
             button{
                 height:60px;
                 width:90px;
                 color:white;
                 border:0px;
-                margin-left:47%;
+                margin-left:46.3%;
                 font-weight:bold;
                 font-size:18px;
+                border-radius: 10px;
+                outline:none;
                 background: linear-gradient(30deg,rgba(183,222,237,1) ,#0FB2EE 25%, #0EAAEC 45%, rgba(183,222,237,1) 100%);
             }
-
+            
+            button:hover{
+                background: linear-gradient(30deg,rgb(153, 226, 255) ,rgb(220, 246, 255) 25%, rgb(89, 205, 255) 45%, rgb(0, 140, 195) 100%);
+            }
             input , .cinput{
+                margin-left:32px;
+                margin-top:5px;
                 background-color:white;
-                border:1px solid grey;
-                margin-left:44.5%;;
+                border:1px solid grey;                
                 height:30px;
-                width:150px;
-                margin-top:10px;
+                width:150px;        
                 font-size:25px;
                 color:rgb(1, 151, 206);
                 border-radius:6px;
@@ -44,32 +64,23 @@
                 font-size:15px;
                 font-family: iransans_regular;
             }
-
             .winput{
                 border:1.1px solid red;   
                 background-color: #FAFF93;
                 transition: background-color 2s , border 1s;
             }
-
-            button:hover{
-                background: linear-gradient(30deg,rgb(153, 226, 255) ,rgb(220, 246, 255) 25%, rgb(89, 205, 255) 45%, rgb(0, 140, 195) 100%);
-            }
-
-            table ,th ,td{
-                border:1px solid rgb(190, 189, 189);
+            table ,td{
+                border:0px solid rgb(190, 189, 189);
                 border-collapse: collapse;
                 text-align:center;
             }
-
             th,td{
                 padding:3px;
             }
-
             table{
                 width:80%;
                 margin:auto;
             }
-
             caption{
                 color:#251AB0;
                 font:25px  iransans_regular; 
@@ -78,26 +89,78 @@
                 border: 1px solid  rgb(190, 189, 189);
                 border-radius:10px; 
             }
-
-            tr:nth-child(2n+3) {
+            tr:nth-child(n+2){
+                border-bottom:2px solid rgb(190, 189, 189);
+            }            
+            tr:nth-child(2n+2) {
                 background:#F3F3F3;    
             }
-            tr:nth-child(2n+3):hover {
-                background:rgb(7, 0, 0);
-                color:white;  
-            }
-
-            tr:nth-child(2n+4) {
+            tr:nth-child(2n+3) {
                 background:rgb(224, 222, 222);
             }
-            tr:nth-child(2n+2):hover {
+            tr:nth-child(n+2):hover {
                 background:rgb(7, 0, 0);
-                color:white; 
+                color:white;  
+            }     
+            tr:nth-child(5n+6){
+                border-bottom:2px dashed black;
             }
-
+            th:first-child{
+                border-top-left-radius:20px;
+            }            
+            th:nth-child(10){
+                border-top-right-radius:20px;
+            }
             th{
                 background-color:rgb(153, 226, 255);
             }
+            tr:last-child td:nth-child(2){
+                border-width:0px 1px 0px 1px;
+                border-style:dashed ;
+                border-color: rgb(167, 163, 163);
+                color:red;
+            }
+            tr:last-child{
+                border:0;
+            }
+            tr:last-child td:first-child{
+                border-bottom-left-radius:10px;                
+            }
+            tr:last-child td:last-child{
+                border-bottom-right-radius:10px;                
+            }
+            
+            #talkbubbleleft  {   
+                color:white;
+                direction: rtl;
+                margin-top:5px;             
+                width: 200px;
+                height: 32px;
+                background: black;
+                position: relative;
+                border-radius: 10px;
+                opacity:0;                
+                text-align: center;
+            }
+            
+            #talkbubbleleft:before {
+                
+                content: "";
+                position: absolute;
+                right: 98.5%;
+                top: 3px;
+                width: 0;
+                height: 0;
+                border-top: 13px solid transparent;
+                border-right: 13px solid black;
+                border-bottom: 13px solid transparent;
+            }
+            @keyframes example {
+                0%   {opacity:0;}                
+                50%   {opacity:1;}                
+                100% {opacity:0;}
+            }
+
         </style>
         <script>
             function f1() {
@@ -114,9 +177,17 @@
                 var remain_day =[""];                         // روز های مانده تا ورود سفارش
                 var difference =[""];                         // ماب تفاوت تقاضا و موجودی
                 var inv_eday_all = 0 ;                        // مجموع همه موجودی در انتهای روزها
-                
-                document.getElementById('userInput').className = (value == 0) ? "winput" : "cinput";
 
+                //document.getElementById('userInput').className = (value == 0) ? "winput" : "cinput";
+                if((!value) | isNaN(value) | value == 0 | value < 0){
+                    document.getElementById('userInput').className ="winput"; 
+                    document.getElementById("talkbubbleleft").style.animation = "example 3s infinite";
+                }
+                else{
+                    document.getElementById("talkbubbleleft").style.animation = "";
+                    document.getElementById('userInput').className ="cinput"; 
+                }
+                
                 for (i = 1; i <= value*5; i++){
                     rd_taghaza[i] = 00 + Math.floor(Math.random() * 99);
                     if(rd_taghaza[i] >= 01 & rd_taghaza[i] <= 10){
@@ -234,8 +305,18 @@
         </script>
     </head>
     <body> 
+        
         <button onclick="f1()">Click ME!</button>
-        <input type="text" id="userInput" placeholder="تعداد دور ها را وارد کنید" required>
+        <div class="main">
+            <div class="inner1">
+                <input type="text" id="userInput" placeholder="تعداد دور ها را وارد کنید" required>
+            </div>
+            <div class="inner2">
+                <div id="talkbubbleleft">مقدار وارد شده صحیح نیست.</div>
+            </div>
+        </div>
+        
+        
         <table id ="table">
             <caption>جدول شبیه سازی برای سیستم موجودی </caption>
             <tr>
